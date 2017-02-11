@@ -8,8 +8,8 @@ var towerImg = document.createElement("img");
 // 設定這個元素的要顯示的圖片
 bgImg.src = "images/map.png";
 enemyImg.src = "images/slime.gif";
-btnImg.src = "images/tower-btn.png"
-towerImg .src= "images/tower.png"
+btnImg.src = "images/tower-btn.png";
+towerImg .src= "images/tower.png";
 
 // 找出網頁中的 canvas 元素
 var canvas = document.getElementById("game-canvas");
@@ -32,14 +32,49 @@ function draw(){
 // 執行 draw 函式
 setInterval(draw, 1000/FPS);
 
+var enemyPath = [
+  {x: 96, y: 64},
+  {x: 384, y: 64},
+  {x: 384, y: 192},
+  {x: 224, y: 192},
+  {x: 224, y: 320},
+  {x: 544, y: 320},
+  {x: 633, y: 455},
+  {x: 544, y: 96},
+]
+
 var enemy = {
 	x: 96,
 	y: 480-32,
 	speedX:0,
 	speedY:-64,
-	move:function(){
-		this.x+=this.speedX/FPS;
-		this.y+=this.speedY/FPS;
+	pathDes:0,
+	move: function(){
+		if(isCollided(enemyPath[this.pathDes].x,enemyPath[this.pathDes].y,this.x,this.y,64/FPS,64/FPS)){
+			this.x = enemyPath[this.pathDes].x
+			this.y = enemyPath[this.pathDes].y
+			this.pathDes++
+			if (enemyPath[this.pathDes].y < this.y) {
+				//往上
+				this.speedX=0;
+				this.speedY=-64;
+			} else if (enemyPath[this.pathDes].x > this.x) {
+				//往右
+				this.speedX=64;
+				this.speedY=0;
+			} else if (enemyPath[this.pathDes].y > this.y) {
+				//往下
+				this.speedX=0;
+				this.speedY=64;
+			} else if (enemyPath[this.pathDes].x < this.x) {
+				//往左
+				this.speedX=-64;
+				this.speedY=0;
+			} else {}
+		} else {
+			this.x+=this.speedX/FPS;
+			this.y+=this.speedY/FPS;
+		}
 	}
 }
 
@@ -67,11 +102,21 @@ function mouseclick(){
 	} else{
 
 		if (isBuilding = true) {
-			tower.x = event.offsetx - cursor.x%32;
-			tower.y = event.offsety - cursor.y%32;;
+			tower.x = cursor.x - cursor.x%32;
+			tower.y = cursor.y - cursor.y%32;;
 		}
 		// 建造完成
 		isBuilding = false;
 	}
 }
 
+function isCollided(pointX,pointY,targatX,targatY,targatWidth,targatHeight){
+	if (targatX <= pointX&&
+		           pointX <= targatX + targatWidth&&
+		targatY <= pointY&&
+		           pointY <= targatY + targatHeight) {
+  return true;
+	} else {
+  return false;
+	}
+}
