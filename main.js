@@ -2,7 +2,7 @@ var FPS = 60;
 var scores = 0;
 var money = 20;
 var clock = 0;
-var hp = 0;
+var hp = 100;
 // 創造 img HTML 元素，並放入變數中
 var bgImg = document.createElement("img");
 var enemyImg = document.createElement("img");
@@ -25,7 +25,7 @@ var ctx = canvas.getContext("2d");
 
 function draw(){
 	clock++;
-	if (clock%100==0) {
+	if (clock%7==0) {
 		var newEnemy = new Enemy()
 		enemies.push(newEnemy)
 	}
