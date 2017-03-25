@@ -25,7 +25,7 @@ var ctx = canvas.getContext("2d");
 
 function draw(){
 	clock++;
-	if (clock%7==0) {
+	if (clock%70==0) {
 		var newEnemy = new Enemy()
 		enemies.push(newEnemy)
 	}
