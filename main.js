@@ -84,7 +84,7 @@ var enemyPath = [
 function Enemy(){
 	this.x = 96;
 	this.y = 480-32;
-	this.hp = 10
+	this.hp = 50
 	this.speedX = 0;
 	this.speedY = -64;
 	this.pathDes = 0;
@@ -189,7 +189,7 @@ function mouseclick(){
 			newTower.x = cursor.x - cursor.x%32;
 			newTower.y = cursor.y - cursor.y%32;
 			towers.push(newTower)
-			money <10;
+			money -=10;
 		}
 		// 建造完成
 		isBuilding = false;
