@@ -1,6 +1,6 @@
 var FPS = 60;
 var scores = 0;
-var money = 20;
+var money = 50;
 var clock = 0;
 var hp = 100;
 // 創造 img HTML 元素，並放入變數中
