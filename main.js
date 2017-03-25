@@ -1,8 +1,8 @@
 var FPS = 60;
 var scores = 0;
-var money = 60;
+var money = 20;
 var clock = 0;
-var hp = 100;
+var hp = 0;
 // 創造 img HTML 元素，並放入變數中
 var bgImg = document.createElement("img");
 var enemyImg = document.createElement("img");
@@ -59,9 +59,17 @@ for (var i = 0; i < towers.length; i++) {
 	ctx.fillText("生命樹血量 = " + hp,32,50)
 	ctx.fillText("分數 = " + scores,32+150,50)
 	ctx.fillText("錢 = " + money,32+270,50)
+  	if (hp <= 0) {
+		ctx.font="64px Arial";
+		ctx.fillStyie = "white";
+  		ctx.fillText("game over" ,160,230)
+		ctx.font="32px Arial";
+  		ctx.fillText("scores:" + scores,260,270)
+  		clearInterval(gameOver)
+  	}
 }
 // 執行 draw 函式
-setInterval(draw, 1000/FPS);
+var gameOver = setInterval(draw, 1000/FPS);
 
 var enemyPath = [
   {x: 96, y: 64},
@@ -181,7 +189,7 @@ function mouseclick(){
 			newTower.x = cursor.x - cursor.x%32;
 			newTower.y = cursor.y - cursor.y%32;
 			towers.push(newTower)
-			money -=10;
+			money <10;
 		}
 		// 建造完成
 		isBuilding = false;
